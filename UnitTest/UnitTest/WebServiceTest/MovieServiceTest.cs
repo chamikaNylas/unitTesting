@@ -18,10 +18,7 @@ namespace UnitTest.WebServiceTest
         /// </summary>
         private readonly TestHelper testHelper;
 
-        /// <summary>
-        /// Insert these movies to the DB
-        /// </summary>
-        private readonly List<Movie> movies;
+
 
         /// <summary>
         /// MovieService Instance
@@ -37,16 +34,6 @@ namespace UnitTest.WebServiceTest
             // Initialize Service with a the Mock service object
             this.movieService = new MovieService(this.testHelper.GetDBContext());
 
-
-            // Prepare default test data
-            this.movies = new List<Movie>
-            {
-                new Movie { Id = 0, Title = "Test Movie 1", Genre = "Test Genre", PostedBy = "saman", ReleaseDate = DateTime.Now.AddDays(2) },
-                new Movie { Id = 0, Title = "Test Movie 2", Genre = "Test Genre", PostedBy = "kamal", ReleaseDate = DateTime.Now.AddDays(2) }
-            };
-
-            // Add default data
-            this.AddDefaultData();
 
 
         }
@@ -83,14 +70,7 @@ namespace UnitTest.WebServiceTest
 
         #region Private Methods
 
-        /// <summary>
-        /// Add default data to the DB
-        /// </summary>
-        /// <returns></returns>
-        private void AddDefaultData()
-        {
-            movieService.Add(this.movies);
-        }
+       
 
         #endregion
     }

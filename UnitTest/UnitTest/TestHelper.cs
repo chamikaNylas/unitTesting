@@ -1,9 +1,10 @@
 ﻿using Core.Context;
+using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace UnitTest
 {
@@ -13,6 +14,7 @@ namespace UnitTest
         /// The DB Instance
         /// </summary>
         private readonly DBContext dbContext;
+
 
         /// <summary>
         /// TestHelper Constructor
@@ -31,14 +33,32 @@ namespace UnitTest
             {
                 dbContext.Database.EnsureDeleted();
                 dbContext.Database.EnsureCreated();
+                
             }
 
-  
+            // Add default data
+             AddDefaultData();
+
         }
 
         public DBContext GetDBContext()
         { 
             return dbContext;
+        }
+
+
+        private  void AddDefaultData()
+        {
+            // Prepare default test data
+             var movies = new List<Movie>
+            {
+                new Movie { Id = 0, Title = "Test Movie 1", Genre = "Test Genre", PostedBy = "saman", ReleaseDate = DateTime.Now.AddDays(2) },
+                new Movie { Id = 0, Title = "Test Movie 2", Genre = "Test Genre", PostedBy = "kamal", ReleaseDate = DateTime.Now.AddDays(2) }
+            };
+
+            // Add new entity record to the DB
+            dbContext.AddRange(movies);
+            dbContext.SaveChanges();          
         }
     }
 }
